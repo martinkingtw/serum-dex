@@ -1,3 +1,54 @@
+# Project Serum Rust Monorepo - Crank Program Fork
+
+## The forked repo is used to run dockerized crank program
+
+### Clone the project
+
+```
+git clone https://github.com/martinkingtw/serum-dex.git && cd serum-dex
+```
+
+### Building docker images
+
+Install docker
+
+Then
+```
+DOCKER_BUILDKIT=1 docker build -t crank_program --secret id=solana_secret,src=<SOLANA_SECRET_KEY_FILE> .
+```
+
+Replace SOLANA_SECRET_KEY_FILE with the solana secret key file
+
+### Starting and running the dockerized crank program
+
+You can run the dockerized crank program
+```
+docker run -e NETWORK='devnet' -e MARKET='<MARKET_PROGRAM_ID>' --name <MARKET_PROGRAM_ID> -d crank_program
+```
+
+The network is either devnet or mainnet
+The market is the program address of the market on solana blockchain
+The name is the docker container name. I set the name as the market program id for ease of recognition.
+
+You can check the status of the dockerized containers
+```
+docker ps
+```
+
+You can go into the docker container
+```
+docker exec -it <CONTAINER_ID> /bin/bash
+or
+docker exec -it <CONTAINER_NAME> /bin/bash
+```
+
+You can stop the docker container
+```
+docker stop <CONTAINER_ID>
+or
+docker stop <CONTAINER_NAME>
+```
+
 <div align="center">
   <img height="170" src="http://github.com/project-serum/awesome-serum/blob/master/logo-serum.png?raw=true" />
 
